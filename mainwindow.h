@@ -1,13 +1,17 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
 #include "texteditor.h"
+#include "jugar.h"
+
+#include <QMainWindow>
 #include <QMenuBar>
 #include <QMenu>
 #include <QAction>
 #include <QFileDialog>
 #include <fstream>
+#include <QTabWidget>
+#include <QGroupBox>
 
 namespace Ui {
 class MainWindow;
@@ -17,7 +21,7 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 private:
-    TextEditor textPanel;
+    TextEditor* textPanel;
     QMenuBar* barraMenu;
     QMenu* archivo;
     QAction* abrir;
@@ -25,6 +29,8 @@ private:
     QAction* guardarComo;
     QFileDialog* dialogoArchivo;
     QString path;
+    QTabWidget* modos;
+    Jugar*      juego;
 
 public:
     explicit MainWindow(QWidget *parent = 0);
@@ -33,6 +39,7 @@ private slots:
     void onGuardar();
     void onGuardarComo();
     void onAbrir();
+    void onModificado();
 
 private:
     Ui::MainWindow *ui;

@@ -15,10 +15,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     texteditor.cpp \
-    resaltador.cpp
+    resaltador.cpp \
+    jugar.cpp
 
 HEADERS  += mainwindow.h \
     texteditor.h \
-    resaltador.h
+    resaltador.h \
+    jugar.h
 
 FORMS    += mainwindow.ui

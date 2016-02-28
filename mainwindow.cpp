@@ -1,8 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -16,6 +15,9 @@ MainWindow::MainWindow(QWidget *parent) :
     guardar = new QAction("Guardar",this);
     guardarComo = new QAction("Guardar como",this);
 
+    abrir->setShortcut(QKeySequence("Ctrl+o"));
+    guardar->setShortcut(QKeySequence("Ctrl+s"));
+
     barraMenu->addMenu(archivo);
     archivo->addAction(abrir);
     archivo->addAction(guardar);
@@ -23,19 +25,24 @@ MainWindow::MainWindow(QWidget *parent) :
 
     guardar->setDisabled(true);
 
-    connect(guardar,SIGNAL(triggered(bool)),this,SLOT(onAbrir()));
+    connect(guardar,SIGNAL(triggered(bool)),this,SLOT(onGuardar()));
     connect(guardarComo,SIGNAL(triggered(bool)),this,SLOT(onGuardarComo()));
     connect(abrir,SIGNAL(triggered(bool)),this,SLOT(onAbrir()));
 
-    this->setMenuBar(barraMenu);
-    this->setCentralWidget(&textPanel);
-    this->setWindowTitle("StoryBot IDE");
 
+    modos = new QTabWidget (this);
+    juego = new Jugar (modos);
+    textPanel = new TextEditor (modos,this);
+    modos->addTab (textPanel, "Editor");
+    modos->addTab (juego, "Jugar!");
+
+    this->setMenuBar(barraMenu);
+    this->setCentralWidget(modos);
+    this->setWindowTitle("StoryBot IDE [*]");
 
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow(){
     delete ui;
 }
 
@@ -43,12 +50,15 @@ void MainWindow::onAbrir(){
     dialogoArchivo->setAcceptMode(QFileDialog::AcceptOpen);
     QString ruta = dialogoArchivo->getOpenFileName(this);
     ifstream file;
+    path = ruta;
     string buffer;
     file.open(ruta.toStdString().c_str());
     if(file.is_open()){
         getline (file, buffer, (char) file.eof());
-        textPanel.document()->setPlainText(QString::fromStdString(buffer));
+        textPanel->document()->setPlainText(QString::fromStdString(buffer));
         file.close();
+        guardar->setDisabled(false);
+        this->setWindowModified(false);
     }else{
         cout<<"Error I/O";
     }
@@ -58,8 +68,9 @@ void MainWindow::onGuardar(){
     ofstream file;
     file.open(path.toStdString().c_str());
     if(file.is_open()){
-        file<<textPanel.toPlainText().toStdString();
+        file<<textPanel->toPlainText().toStdString();
         file.close();
+        this->setWindowModified(false);
     }else{
         cout<<"Error I/O";
     }
@@ -74,11 +85,16 @@ void MainWindow::onGuardarComo(){
     ofstream file;
     file.open(ruta.toStdString().c_str());
     if(file.is_open()){
-        file<<textPanel.toPlainText().toStdString();
+        file<<textPanel->toPlainText().toStdString();
         file.close();
         guardar->setDisabled(false);
         path = ruta;
+        this->setWindowModified(false);
     }else{
         cout<<"Error I/O";
     }
+}
+
+void MainWindow::onModificado(){
+    this->setWindowModified(true);
 }
