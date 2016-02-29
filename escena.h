@@ -23,6 +23,7 @@ public:
     void addText(QString );
     void addSalto(Salto* salto);
     void addOpcion(Opcion* o);
+    QString getText();
 };
 
 #endif // ESCENA_H

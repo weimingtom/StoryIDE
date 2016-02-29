@@ -11,12 +11,20 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 
     barraMenu = new QMenuBar(this);
     archivo = new QMenu("Archivo",this);
-    abrir = new QAction("Abrir",this);
-    guardar = new QAction("Guardar",this);
-    guardarComo = new QAction("Guardar como",this);
+
+    iconAbrir = QIcon::fromTheme("document-open");
+    iconGuardar = QIcon::fromTheme("document-save");
+    iconGuardarComo = QIcon::fromTheme("document-save-as");
+
+    abrir = new QAction(iconAbrir,"Abrir",this);
+    guardar = new QAction(iconGuardar,"Guardar",this);
+    guardarComo = new QAction(iconGuardarComo,"Guardar como",this);
+    compilar = new QAction(QIcon::fromTheme("system-run"),"Compilar",this);
+    jugar = new QAction(QIcon::fromTheme("media-playback-start"),"Jugar",this);
 
     abrir->setShortcut(QKeySequence("Ctrl+o"));
     guardarComo->setShortcut(QKeySequence("Ctrl+s"));
+    compilar->setShortcut(QKeySequence("Ctrl+b"));
 
     barraMenu->addMenu(archivo);
     archivo->addAction(abrir);
@@ -28,7 +36,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     connect(guardar,SIGNAL(triggered(bool)),this,SLOT(onGuardar()));
     connect(guardarComo,SIGNAL(triggered(bool)),this,SLOT(onGuardarComo()));
     connect(abrir,SIGNAL(triggered(bool)),this,SLOT(onAbrir()));
+    connect(jugar,SIGNAL(triggered(bool)),this,SLOT(onJugar()));
+    connect(compilar,SIGNAL(triggered(bool)),this,SLOT(onCompilar()));
 
+
+    QToolBar * Ribbon = new QToolBar(this);
+    Ribbon->addAction(abrir);
+    Ribbon->addAction(guardar);
+    Ribbon->addSeparator();
+    Ribbon->addAction(compilar);
+    Ribbon->addAction(jugar);
 
     dockLinks = new QDockWidget("Escenas",this);
 
@@ -38,7 +55,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     QBoxLayout* layContenedorLinks = new QBoxLayout(QBoxLayout::TopToBottom,contenedorLinks);
     layContenedorLinks->setSizeConstraint(QBoxLayout::SetFixedSize);
     contenedorLinks->setLayout(layContenedorLinks);
-
 
     scroll = new QScrollArea(dockLinks);
     scroll->setWidget(contenedorLinks);
@@ -51,13 +67,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     modos = new QTabWidget (this);
     textPanel = new TextEditor (modos,this,contenedorLinks);
     juego = new Jugar (modos,textPanel);
+    compilerPanel = new PanelCompilar(modos);
     modos->addTab (textPanel, "Editor");
-    modos->addTab (juego, "Jugar");
-
+    modos->addTab (compilerPanel, "Compilador");
+    modos->addTab (juego, "Juego");
 
     this->setMenuBar(barraMenu);
     this->setCentralWidget(modos);
     this->addDockWidget(Qt::LeftDockWidgetArea,dockLinks,Qt::Vertical);
+    this->addToolBar(Ribbon);
     this->setWindowTitle("StoryBot IDE [*]");
 }
 
@@ -124,4 +142,12 @@ void MainWindow::onModificado(){
 
 void MainWindow::addTag(LinkEtiqueta *tag){
     contenedorLinks->layout()->addWidget(tag);
+}
+
+void MainWindow::onJugar(){
+    modos->setCurrentIndex(2);
+}
+
+void MainWindow::onCompilar(){
+    modos->setCurrentIndex(1);
 }

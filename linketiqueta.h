@@ -3,6 +3,7 @@
 
 #include "texteditor.h"
 #include <QLabel>
+#include <QIcon>
 
 class TextEditor;
 

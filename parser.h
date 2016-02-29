@@ -8,6 +8,9 @@
 #include <QString>
 #include <QStringList>
 #include <iostream>
+#include <map>
+#include <utility>
+#include <QList>
 
 struct tempHistoria{
     QString texto;
@@ -23,7 +26,8 @@ private:
     QRegExp* titulo;
     QRegExp* opcion;
     QRegExp* comentario;
-    vector<Escena*> escenas;
+    map <int,Escena*> escenas;
+    QList <int> etiquetasSinDeclarar;
     Opcion* tmpOpcion;
     Salto*  tmpSalto;
     int lineCount;
@@ -32,11 +36,13 @@ private:
     QString hAutor;
     QString buffer;
     int errorCount;
+    int escenaActual;
 public:
     Parser();
-    vector<Escena*> compilar(QString);
+    map <int,Escena*> compilar(QString);
     void errores(QString token);
     void clear();
+    void comprobarEtiquetas(int i);
 };
 
 #endif // PARSER_H

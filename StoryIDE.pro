@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     escena.cpp \
     salto.cpp \
     linketiqueta.cpp \
-    parser.cpp
+    parser.cpp \
+    panelcompilar.cpp
 
 HEADERS  += mainwindow.h \
     texteditor.h \
@@ -31,6 +32,7 @@ HEADERS  += mainwindow.h \
     escena.h \
     salto.h \
     linketiqueta.h \
-    parser.h
+    parser.h \
+    panelcompilar.h
 
 FORMS    += mainwindow.ui

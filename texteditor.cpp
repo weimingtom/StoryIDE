@@ -7,6 +7,8 @@ TextEditor::TextEditor(QWidget* parent, QMainWindow* mainw, QWidget* conten) : Q
     connect(this, SIGNAL(updateRequest(QRect,int)), this, SLOT(updateAreaNumeroLinea(QRect,int)));
     connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine()));
 
+    setLineWrapMode(QPlainTextEdit::NoWrap);
+
     updateAreaNumeroLineaWidth(0);
     highlightCurrentLine();
 
