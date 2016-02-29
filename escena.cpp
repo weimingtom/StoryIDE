@@ -1,22 +1,17 @@
 #include "escena.h"
 
 Escena::Escena(){
-
-}
-
-Escena::Escena(QString texto){
-    text = texto;
     salto = NULL;
 }
 
-Escena::Escena(QString texto, Salto* jump){
-    text = texto;
-    salto = jump;
+void Escena::addText(QString s){
+    text.append(s+" ");
 }
 
+void Escena::addSalto(Salto *s){
+    salto = s;
+}
 
-Escena::Escena(QString texto, vector<Opcion*> v){
-    text = texto;
-    salto = NULL;
-    opciones = v;
+void Escena::addOpcion(Opcion* o){
+    opciones.push_back(o);
 }

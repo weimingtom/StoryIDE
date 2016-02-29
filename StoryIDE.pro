@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     historia.cpp \
     escena.cpp \
     salto.cpp \
-    linketiqueta.cpp
+    linketiqueta.cpp \
+    parser.cpp
 
 HEADERS  += mainwindow.h \
     texteditor.h \
@@ -29,6 +30,7 @@ HEADERS  += mainwindow.h \
     historia.h \
     escena.h \
     salto.h \
-    linketiqueta.h
+    linketiqueta.h \
+    parser.h
 
 FORMS    += mainwindow.ui

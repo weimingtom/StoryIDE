@@ -20,9 +20,9 @@ private:
     vector <Opcion*> opciones;
 public:
     Escena();
-    Escena(QString text);
-    Escena(QString text, Salto* salto);
-    Escena(QString text, vector<Opcion*> v);
+    void addText(QString );
+    void addSalto(Salto* salto);
+    void addOpcion(Opcion* o);
 };
 
 #endif // ESCENA_H

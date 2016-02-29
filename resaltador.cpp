@@ -8,7 +8,7 @@ Resaltador::Resaltador(QTextDocument* parent) : QSyntaxHighlighter(parent){
     saltoProbabilistico = new QRegExp("(%(\\d)+)");     //'%' seguido de cualquier número
     opcion = new QRegExp("(\\~)((\\s|\\w))*");          //'~'
     comentario = new QRegExp();
-    bloqueProbabilistico = new QRegExp("\\(\\d\\,@(\\d)\\)");
+    bloqueProbabilistico = new QRegExp("\\(((\\d+)(\\s+))+@(\\d+)\\)");
 
     Regla rule;
     formatoTitulo.setForeground(Qt::blue);

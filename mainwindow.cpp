@@ -30,35 +30,34 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     connect(abrir,SIGNAL(triggered(bool)),this,SLOT(onAbrir()));
 
 
+    dockLinks = new QDockWidget("Escenas",this);
+
+    contenedorLinks = new QWidget(dockLinks);
 
 
-
-    linksDefiniciones = new QDockWidget("Escenas",this);
-
-    contenedorLinks = new QWidget(linksDefiniciones);
     QBoxLayout* layContenedorLinks = new QBoxLayout(QBoxLayout::TopToBottom,contenedorLinks);
     layContenedorLinks->setSizeConstraint(QBoxLayout::SetFixedSize);
     contenedorLinks->setLayout(layContenedorLinks);
 
 
-    scroll = new QScrollArea(linksDefiniciones);
+    scroll = new QScrollArea(dockLinks);
     scroll->setWidget(contenedorLinks);
     scroll->setWidgetResizable(true);
 
-    linksDefiniciones->setFeatures(QDockWidget::DockWidgetMovable);
-    linksDefiniciones->setWidget(scroll);
-    linksDefiniciones->layout()->setSizeConstraint(QBoxLayout::SetMinimumSize);
+    dockLinks->setFeatures(QDockWidget::DockWidgetMovable);
+    dockLinks->setWidget(scroll);
+    dockLinks->layout()->setSizeConstraint(QBoxLayout::SetMinimumSize);
 
     modos = new QTabWidget (this);
-    juego = new Jugar (modos);
     textPanel = new TextEditor (modos,this,contenedorLinks);
+    juego = new Jugar (modos,textPanel);
     modos->addTab (textPanel, "Editor");
     modos->addTab (juego, "Jugar");
 
 
     this->setMenuBar(barraMenu);
     this->setCentralWidget(modos);
-    this->addDockWidget(Qt::LeftDockWidgetArea,linksDefiniciones,Qt::Vertical);
+    this->addDockWidget(Qt::LeftDockWidgetArea,dockLinks,Qt::Vertical);
     this->setWindowTitle("StoryBot IDE [*]");
 }
 

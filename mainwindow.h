@@ -4,6 +4,8 @@
 #include "texteditor.h"
 #include "jugar.h"
 #include "linketiqueta.h"
+#include "historia.h"
+#include "escena.h"
 
 #include <QScrollArea>
 #include <QLabel>
@@ -17,6 +19,7 @@
 #include <QGroupBox>
 #include <QDockWidget>
 #include <QBoxLayout>
+#include <QPushButton>
 
 namespace Ui {
 class MainWindow;
@@ -36,7 +39,7 @@ private:
     QString path;
     QTabWidget* modos;
     Jugar*      juego;
-    QDockWidget* linksDefiniciones;
+    QDockWidget* dockLinks;
     QWidget* contenedorLinks;
     QScrollArea* scroll;
 public:
@@ -48,7 +51,6 @@ private slots:
     void onGuardarComo();
     void onAbrir();
     void onModificado();
-
 private:
     Ui::MainWindow *ui;
 };

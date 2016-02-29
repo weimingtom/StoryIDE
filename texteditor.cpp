@@ -9,6 +9,7 @@ TextEditor::TextEditor(QWidget* parent, QMainWindow* mainw, QWidget* conten) : Q
 
     updateAreaNumeroLineaWidth(0);
     highlightCurrentLine();
+
     paleta = new QPalette();
     paleta->setColor(QPalette::Base,QColor(QColor(69,65,68)));
     paleta->setColor(QPalette::Text,QColor("white"));
@@ -17,7 +18,7 @@ TextEditor::TextEditor(QWidget* parent, QMainWindow* mainw, QWidget* conten) : Q
     Resaltador* a = new Resaltador(this->document());
     doc = document();
 
-    etiqueta = etiqueta = new QRegExp("<(\\d+)>");               //Cualquier número encerrado en '<>'
+    etiqueta = etiqueta = new QRegExp("<(\\d)+>");               //Cualquier número encerrado en '<>'
     main = mainw;
     connect(this,SIGNAL(textChanged()),main,SLOT(onModificado()));
     connect(this,SIGNAL(textChanged()),this,SLOT(actualizarLinks()));
@@ -103,7 +104,7 @@ void TextEditor::actualizarLinks(){
     int pos = 0;
     vector <pair<int,int> > auxVec;                  //nº escena / linea
     while ((pos = etiqueta->indexIn(toPlainText(), pos)) != -1) {
-        int linea = document()->find(etiqueta->cap(1)).blockNumber();
+        int linea = document()->find(etiqueta->cap(0)).blockNumber();
 
         auxVec.push_back(make_pair(etiqueta->cap(1).remove("<").remove(">").toInt(),linea));
         pos += etiqueta->matchedLength();
