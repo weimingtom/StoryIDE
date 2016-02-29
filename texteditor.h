@@ -18,12 +18,6 @@ class AreaNumeroLinea;
 class TextEditor : public QPlainTextEdit{
     Q_OBJECT
 private:
-    QRegExp*  etiqueta;
-    QRegExp*  saltoIncondicional;
-    QRegExp*  saltoProbabilistico;
-    QRegExp*  autor;
-    QRegExp*  titulo;
-    QRegExp*  opcion;
     QPalette* paleta;
     AreaNumeroLinea*  areaNumero;
     QMainWindow* main;

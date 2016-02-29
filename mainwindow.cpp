@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     guardarComo = new QAction("Guardar como",this);
 
     abrir->setShortcut(QKeySequence("Ctrl+o"));
-    guardar->setShortcut(QKeySequence("Ctrl+s"));
+    guardarComo->setShortcut(QKeySequence("Ctrl+s"));
 
     barraMenu->addMenu(archivo);
     archivo->addAction(abrir);
@@ -59,6 +59,8 @@ void MainWindow::onAbrir(){
         file.close();
         guardar->setDisabled(false);
         this->setWindowModified(false);
+        guardar->setShortcut(QKeySequence("Ctrl+s"));
+        guardarComo->setShortcut(NULL);
     }else{
         cout<<"Error I/O";
     }
@@ -90,6 +92,8 @@ void MainWindow::onGuardarComo(){
         guardar->setDisabled(false);
         path = ruta;
         this->setWindowModified(false);
+        guardar->setShortcut(QKeySequence("Ctrl+s"));
+        guardarComo->setShortcut(NULL);
     }else{
         cout<<"Error I/O";
     }

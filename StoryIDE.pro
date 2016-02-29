@@ -16,11 +16,17 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     texteditor.cpp \
     resaltador.cpp \
-    jugar.cpp
+    jugar.cpp \
+    historia.cpp \
+    escena.cpp \
+    salto.cpp
 
 HEADERS  += mainwindow.h \
     texteditor.h \
     resaltador.h \
-    jugar.h
+    jugar.h \
+    historia.h \
+    escena.h \
+    salto.h
 
 FORMS    += mainwindow.ui

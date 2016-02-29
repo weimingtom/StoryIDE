@@ -29,7 +29,7 @@ int TextEditor::areaNumeroLineaWidth(){
         ++digits;
     }
     int space = 4 + fontMetrics().width(QLatin1Char('9')) * digits;
-    return space;
+    return space+20;
 }
 
 void TextEditor::updateAreaNumeroLineaWidth(int a){
