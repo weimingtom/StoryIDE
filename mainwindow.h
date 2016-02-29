@@ -3,7 +3,10 @@
 
 #include "texteditor.h"
 #include "jugar.h"
+#include "linketiqueta.h"
 
+#include <QScrollArea>
+#include <QLabel>
 #include <QMainWindow>
 #include <QMenuBar>
 #include <QMenu>
@@ -12,6 +15,8 @@
 #include <fstream>
 #include <QTabWidget>
 #include <QGroupBox>
+#include <QDockWidget>
+#include <QBoxLayout>
 
 namespace Ui {
 class MainWindow;
@@ -31,10 +36,13 @@ private:
     QString path;
     QTabWidget* modos;
     Jugar*      juego;
-
+    QDockWidget* linksDefiniciones;
+    QWidget* contenedorLinks;
+    QScrollArea* scroll;
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void addTag(LinkEtiqueta* tag);
 private slots:
     void onGuardar();
     void onGuardarComo();

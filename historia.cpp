@@ -15,6 +15,7 @@ QString Historia::parser(QString text){
     char estado = 'O';
     QString buffer;
     tempHistoria tmp;
+
     QStringList lineaLista = text.split("\n",QString::KeepEmptyParts);
     foreach (QString linea, lineaLista) {
         if(autor->indexIn(linea)!=-1){

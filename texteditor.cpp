@@ -1,6 +1,6 @@
 #include "texteditor.h"
 
-TextEditor::TextEditor(QWidget* parent, QMainWindow* mainw) : QPlainTextEdit(parent){
+TextEditor::TextEditor(QWidget* parent, QMainWindow* mainw, QWidget* conten) : QPlainTextEdit(parent){
 
     areaNumero = new AreaNumeroLinea(this);
     connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(updateAreaNumeroLineaWidth(int)));
@@ -15,10 +15,15 @@ TextEditor::TextEditor(QWidget* parent, QMainWindow* mainw) : QPlainTextEdit(par
     this->setPalette(*paleta);
 
     Resaltador* a = new Resaltador(this->document());
+    doc = document();
 
+    etiqueta = etiqueta = new QRegExp("<(\\d+)>");               //Cualquier número encerrado en '<>'
     main = mainw;
     connect(this,SIGNAL(textChanged()),main,SLOT(onModificado()));
+    connect(this,SIGNAL(textChanged()),this,SLOT(actualizarLinks()));
 
+    nEtiquetas = 0;
+    contenedor = conten;
 }
 
 int TextEditor::areaNumeroLineaWidth(){
@@ -94,3 +99,28 @@ void TextEditor::areaNumeroLineaPaintEvent(QPaintEvent *event){
     }
 }
 
+void TextEditor::actualizarLinks(){
+    int pos = 0;
+    vector <pair<int,int> > auxVec;                  //nº escena / linea
+    while ((pos = etiqueta->indexIn(toPlainText(), pos)) != -1) {
+        int linea = document()->find(etiqueta->cap(1)).blockNumber();
+
+        auxVec.push_back(make_pair(etiqueta->cap(1).remove("<").remove(">").toInt(),linea));
+        pos += etiqueta->matchedLength();
+    }
+    if(auxVec.size()!=nEtiquetas){
+        while(!contenedor->layout()->isEmpty()){
+            QLayoutItem* aux = contenedor->layout()->takeAt(0);
+            delete aux->widget();
+        }
+        for(int i = 0; i < auxVec.size (); i++){
+            contenedor->layout()->addWidget(new LinkEtiqueta(this,auxVec[i].first,auxVec[i].second));
+        }
+        nEtiquetas = auxVec.size();
+    }
+}
+
+void TextEditor::setLinea(int ln){
+    QTextCursor cursor( doc->findBlockByLineNumber(ln));
+    setTextCursor(cursor);
+}

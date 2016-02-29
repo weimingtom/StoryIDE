@@ -2,6 +2,7 @@
 #define TEXTEDITOR_H
 
 #include "resaltador.h"
+#include "linketiqueta.h"
 
 #include <iostream>
 #include <QPlainTextEdit>
@@ -10,9 +11,14 @@
 #include <QPalette>
 #include <QMainWindow>
 #include <QPainter>
+#include <QTextCursor>
+#include <QLayout>
+#include <QTextDocument>
+#include <utility>
 
 using namespace std;
 
+class MainWindow;
 class AreaNumeroLinea;
 
 class TextEditor : public QPlainTextEdit{
@@ -21,16 +27,22 @@ private:
     QPalette* paleta;
     AreaNumeroLinea*  areaNumero;
     QMainWindow* main;
+    QRegExp* etiqueta;
+    QWidget* contenedor;
+    QTextDocument* doc;
+    int nEtiquetas;
 public:
-    explicit TextEditor(QWidget *parent = 0, QMainWindow* mainw = 0);
+    explicit TextEditor(QWidget *parent = 0, QMainWindow* mainw = 0, QWidget* contenedor = 0);
     void areaNumeroLineaPaintEvent(QPaintEvent *event);
     int areaNumeroLineaWidth();
+    void setLinea(int l);
 protected:
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
 private slots:
     void updateAreaNumeroLineaWidth(int newBlockCount);
     void highlightCurrentLine();
     void updateAreaNumeroLinea(const QRect &, int);
+    void actualizarLinks();
 };
 
 class AreaNumeroLinea : public QWidget{

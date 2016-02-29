@@ -30,16 +30,36 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     connect(abrir,SIGNAL(triggered(bool)),this,SLOT(onAbrir()));
 
 
+
+
+
+    linksDefiniciones = new QDockWidget("Escenas",this);
+
+    contenedorLinks = new QWidget(linksDefiniciones);
+    QBoxLayout* layContenedorLinks = new QBoxLayout(QBoxLayout::TopToBottom,contenedorLinks);
+    layContenedorLinks->setSizeConstraint(QBoxLayout::SetFixedSize);
+    contenedorLinks->setLayout(layContenedorLinks);
+
+
+    scroll = new QScrollArea(linksDefiniciones);
+    scroll->setWidget(contenedorLinks);
+    scroll->setWidgetResizable(true);
+
+    linksDefiniciones->setFeatures(QDockWidget::DockWidgetMovable);
+    linksDefiniciones->setWidget(scroll);
+    linksDefiniciones->layout()->setSizeConstraint(QBoxLayout::SetMinimumSize);
+
     modos = new QTabWidget (this);
     juego = new Jugar (modos);
-    textPanel = new TextEditor (modos,this);
+    textPanel = new TextEditor (modos,this,contenedorLinks);
     modos->addTab (textPanel, "Editor");
-    modos->addTab (juego, "Jugar!");
+    modos->addTab (juego, "Jugar");
+
 
     this->setMenuBar(barraMenu);
     this->setCentralWidget(modos);
+    this->addDockWidget(Qt::LeftDockWidgetArea,linksDefiniciones,Qt::Vertical);
     this->setWindowTitle("StoryBot IDE [*]");
-
 }
 
 MainWindow::~MainWindow(){
@@ -101,4 +121,8 @@ void MainWindow::onGuardarComo(){
 
 void MainWindow::onModificado(){
     this->setWindowModified(true);
+}
+
+void MainWindow::addTag(LinkEtiqueta *tag){
+    contenedorLinks->layout()->addWidget(tag);
 }
