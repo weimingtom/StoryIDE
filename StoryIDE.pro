@@ -10,29 +10,32 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = StoryIDE
 TEMPLATE = app
+CONFIG += c++11 -03
 
 
-SOURCES += main.cpp\
-        mainwindow.cpp \
-    texteditor.cpp \
-    resaltador.cpp \
-    jugar.cpp \
-    historia.cpp \
-    escena.cpp \
-    salto.cpp \
-    linketiqueta.cpp \
-    parser.cpp \
-    panelcompilar.cpp
+SOURCES += src/main.cpp\
+        src/mainwindow.cpp \
+    	src/texteditor.cpp \
+    	src/resaltador.cpp \
+    	src/jugar.cpp \
+    	src/historia.cpp \
+    	src/escena.cpp \
+    	src/salto.cpp \
+    	src/linketiqueta.cpp \
+    	src/parser.cpp \
+    	src/panelcompilar.cpp \
+    	src/regex.cpp
 
-HEADERS  += mainwindow.h \
-    texteditor.h \
-    resaltador.h \
-    jugar.h \
-    historia.h \
-    escena.h \
-    salto.h \
-    linketiqueta.h \
-    parser.h \
-    panelcompilar.h
+HEADERS  += src/mainwindow.h \
+	src/texteditor.h \
+    	src/resaltador.h \
+    	src/jugar.h \
+    	src/historia.h \
+    	src/escena.h \
+    	src/salto.h \
+    	src/linketiqueta.h \
+    	src/parser.h \
+    	src/panelcompilar.h \
+    	src/regex.h
 
 FORMS    += mainwindow.ui
