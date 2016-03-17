@@ -38,9 +38,12 @@ private:
     TextEditor* textPanel;
     QMenuBar* barraMenu;
     QMenu* archivo;
+    QMenu* ver;
     QAction* abrir;
     QAction* guardar;
     QAction* guardarComo;
+    QAction* verPanelErrores;
+    QAction* verPanelEscenas;
     QAction* compilar;
     QAction* jugar;
     QFileDialog* dialogoArchivo;

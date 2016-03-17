@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 
     barraMenu = new QMenuBar(this);
     archivo = new QMenu("Archivo",this);
+    ver = new QMenu("Ver",this);
 
     iconAbrir = QIcon::fromTheme("document-open");
     iconGuardar = QIcon::fromTheme("document-save");
@@ -22,6 +23,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     compilar = new QAction(QIcon::fromTheme("system-run"),"Compilar",this);
     jugar = new QAction(QIcon::fromTheme("media-playback-start"),"Jugar",this);
 
+    verPanelErrores = new QAction("Panel de errores",this);
+    verPanelErrores->setCheckable(true);
+    verPanelErrores->setChecked(true);
+    verPanelEscenas = new QAction("Panel de escenas",this);
+    verPanelEscenas->setCheckable(true);
+    verPanelEscenas->setChecked(true);
+
     abrir->setShortcut(QKeySequence("Ctrl+o"));
     guardarComo->setShortcut(QKeySequence("Ctrl+s"));
     compilar->setShortcut(QKeySequence("Ctrl+b"));
@@ -31,6 +39,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     archivo->addAction(abrir);
     archivo->addAction(guardar);
     archivo->addAction(guardarComo);
+
+    barraMenu->addMenu(ver);
+    ver->addAction(verPanelErrores);
+    ver->addAction(verPanelEscenas);
 
     guardar->setDisabled(true);
 
@@ -82,7 +94,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     modos->addTab (compilerPanel, "Compilador");
     modos->addTab (juego, "Juego");
 
-
+    connect(verPanelErrores,SIGNAL(triggered(bool)),dockCompile,SLOT(setVisible(bool)));
+    connect(verPanelEscenas,SIGNAL(triggered(bool)),dockLinks,SLOT(setVisible(bool)));
 
     this->setMenuBar(barraMenu);
     this->setCentralWidget(modos);
@@ -184,3 +197,5 @@ void MainWindow::setLogs(vector<error*> v){
         tablaErrores->setItem(i,1,new QTableWidgetItem( v[i]->text ));
     }
 }
+
+

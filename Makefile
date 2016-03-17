@@ -1818,7 +1818,21 @@ mainwindow.o: src/mainwindow.cpp src/mainwindow.h \
 		../../.tools/Qt/5.5/gcc_64/include/QtWidgets/qrubberband.h \
 		../../.tools/Qt/5.5/gcc_64/include/QtWidgets/QTableWidget \
 		../../.tools/Qt/5.5/gcc_64/include/QtWidgets/qtablewidget.h \
-		ui_mainwindow.h
+		ui_mainwindow.h \
+		../../.tools/Qt/5.5/gcc_64/include/QtCore/QVariant \
+		../../.tools/Qt/5.5/gcc_64/include/QtWidgets/QApplication \
+		../../.tools/Qt/5.5/gcc_64/include/QtWidgets/qapplication.h \
+		../../.tools/Qt/5.5/gcc_64/include/QtCore/qcoreapplication.h \
+		../../.tools/Qt/5.5/gcc_64/include/QtCore/qeventloop.h \
+		../../.tools/Qt/5.5/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		../../.tools/Qt/5.5/gcc_64/include/QtGui/qguiapplication.h \
+		../../.tools/Qt/5.5/gcc_64/include/QtGui/qinputmethod.h \
+		../../.tools/Qt/5.5/gcc_64/include/QtWidgets/QButtonGroup \
+		../../.tools/Qt/5.5/gcc_64/include/QtWidgets/qbuttongroup.h \
+		../../.tools/Qt/5.5/gcc_64/include/QtWidgets/QHeaderView \
+		../../.tools/Qt/5.5/gcc_64/include/QtWidgets/qheaderview.h \
+		../../.tools/Qt/5.5/gcc_64/include/QtWidgets/QStatusBar \
+		../../.tools/Qt/5.5/gcc_64/include/QtWidgets/qstatusbar.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o src/mainwindow.cpp
 
 texteditor.o: src/texteditor.cpp src/texteditor.h \
