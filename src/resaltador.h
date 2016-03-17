@@ -27,6 +27,7 @@ private:
     QTextCharFormat formatoSaltoProbabilistico;
     QTextCharFormat formatoBloqueProbabilistico;
     QTextCharFormat formatoEtiqueta;
+    QTextCharFormat formatoComentario;
 
     //Regex
     QPalette* paleta;

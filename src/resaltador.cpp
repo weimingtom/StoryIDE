@@ -9,6 +9,11 @@ Resaltador::Resaltador(QTextDocument* parent) : QSyntaxHighlighter(parent){
     rule.format = formatoTitulo;
     highlightingRules.append(rule);
 
+    formatoComentario.setForeground(Qt::gray);
+    rule.pattern = Regex::comentarioResaltado;
+    rule.format = formatoComentario;
+    highlightingRules.append(rule);
+
     formatoAutor.setForeground(Qt::red);
     formatoAutor.setFontWeight(QFont::Bold);
     rule.pattern = Regex::autor;

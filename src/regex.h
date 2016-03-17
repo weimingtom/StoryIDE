@@ -12,7 +12,8 @@ public:
     static const QRegExp saltoProbabilistico;
     static const QRegExp opcion;
     static const QRegExp bloqueProbabilistico;
-    static const QRegExp comentario;
+    static const QRegExp comentarioCompilacion;
+    static const QRegExp comentarioResaltado;
     static const QRegExp blancos;
 };
 

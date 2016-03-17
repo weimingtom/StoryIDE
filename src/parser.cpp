@@ -21,8 +21,8 @@ Historia* Parser::compilar(QString text){
             hTitulo = Regex::autor.cap(0).remove("#");
         }else if(Regex::titulo.indexIn(linea)!=-1){
             hAutor = Regex::titulo.cap(0).remove("{").remove("}");
-        }else if(Regex::comentario.indexIn(linea)!=-1){
-            cout<<Regex::comentario.cap(1).toStdString().c_str()<<endl;
+        }else if(Regex::comentarioCompilacion.indexIn(linea)!=-1){
+            cout<<Regex::comentarioCompilacion.cap(1).toStdString().c_str()<<endl;
         }else{
             QStringList tokenLista = linea.split(" ",QString::KeepEmptyParts);
             foreach (QString token, tokenLista) {
@@ -85,7 +85,7 @@ Historia* Parser::compilar(QString text){
                         }
 
                     }else{
-                        if (Regex::comentario.indexIn(token) != -1){
+                        if (Regex::comentarioCompilacion.indexIn(token) != -1){
                             cout<<"Tirar linea"<<endl;
                             tirarLinea=true;
                         } else if(estado == 'C'){
