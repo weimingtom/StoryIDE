@@ -31,6 +31,14 @@ vector<QString> Escena::getOpciones(){
     return v;
 }
 
-int Escena::getSalto(int i) {
+int Escena::getSaltoOpcion(int i) {
     return opciones[i]->salto->saltar();
+}
+
+int Escena::getSalto(){
+    if(salto!=NULL){
+        return salto->saltar();
+    }else{
+        return -1;
+    }
 }

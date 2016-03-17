@@ -13,13 +13,14 @@ QString Historia::getText(){
 
 ContenidoAMostrar Historia::getEscena(int i){
     ContenidoAMostrar c;
-    if(i == -1){
-        c.texto = current->getText();
-        c.opciones = current->getOpciones();
-    }else{
-        current = escenas.at(current->getSalto(i));        
-        c.texto = current->getText();
-        c.opciones = current->getOpciones();
+    if(i != -1){
+        current = escenas.at(current->getSaltoOpcion(i));
     }
+    c.texto = current->getText();
+    while(current->getSalto()!=-1 ){
+        current = escenas.at(current->getSalto());
+        c.texto.append("\n\n" + current->getText());
+    }
+    c.opciones = current->getOpciones();
     return c;
 }

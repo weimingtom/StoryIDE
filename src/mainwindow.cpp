@@ -112,6 +112,7 @@ void MainWindow::onAbrir(){
         this->setWindowModified(false);
         guardar->setShortcut(QKeySequence("Ctrl+s"));
         guardarComo->setShortcut(NULL);
+        this->setWindowTitle(ruta + " - StoryBot IDE [*]");
     }else{
         cout<<"Error I/O";
     }

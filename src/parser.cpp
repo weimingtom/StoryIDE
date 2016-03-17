@@ -62,7 +62,6 @@ Historia* Parser::compilar(QString text){
                             tmpOpcion->salto = new SaltoIncondicional(idSalto);
                             escenas.at(escenaActual)->addOpcion(tmpOpcion);
                             cout<<"Añadido salto de opción "<<token.mid(token.indexOf("@")+1).toStdString()<<endl;
-                            cout<<"Puntero de opcion "<<tmpOpcion<<endl;
                             clear();
                             estado = 'D';
                         }else{

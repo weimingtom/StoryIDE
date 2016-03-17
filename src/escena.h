@@ -23,7 +23,8 @@ public:
     void addText(QString );
     void addSalto(Salto* salto);
     void addOpcion(Opcion* o);
-    int  getSalto(int i);
+    int  getSaltoOpcion(int i);
+    int getSalto();
     QString getText();
     vector<QString> getOpciones();
 };
