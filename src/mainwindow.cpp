@@ -174,6 +174,9 @@ void MainWindow::addTag(LinkEtiqueta *tag){
 
 void MainWindow::onJugar(){
     modos->setCurrentIndex(2);
+    Parser analizador = Parser();
+    analizador.compilar(textPanel->toPlainText());
+    setLogs(analizador.getLogs());
     juego->compilar();
 }
 

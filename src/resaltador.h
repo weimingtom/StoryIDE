@@ -28,8 +28,15 @@ private:
     QTextCharFormat formatoBloqueProbabilistico;
     QTextCharFormat formatoEtiqueta;
     QTextCharFormat formatoComentario;
-
-    //Regex
+    //Colores
+    QColor colorTitulo;
+    QColor colorAutor;
+    QColor colorOpcion;
+    QColor colorSaltoIncondicional;
+    QColor colorSaltoProbabilistico;
+    QColor colorBloquePorbabilistico;
+    QColor colorEtiqueta;
+    QColor colorComentario;
     QPalette* paleta;
 public:
     Resaltador(QTextDocument* parent = 0);
