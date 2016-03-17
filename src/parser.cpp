@@ -57,6 +57,7 @@ Historia* Parser::compilar(QString text){
                         if(estado == 'A'){
                             escenas.at(escenaActual)->addSalto(new SaltoIncondicional(idSalto));
                             cout<<"Añadido salto "<<token.mid(token.indexOf("@")+1).toStdString()<<endl;
+                            posiblesBucles.insert(pair<Escena*,short> (escenas.at(escenaActual),C_DESCONOCIDO));
                             estado = 'B';
                         }else if(estado == 'C'){
                             tmpOpcion->salto = new SaltoIncondicional(idSalto);
@@ -101,6 +102,9 @@ Historia* Parser::compilar(QString text){
         lineCount++;
     }
     comprobarErroresFinales();
+    for(pair<Escena*,short> E : posiblesBucles){
+        comprobarBucles(E.first);
+    }
     if(logs.size()>0)
         return NULL;
     else{
@@ -172,5 +176,27 @@ void Parser::crearHistoria(){
 
 vector<error*> Parser::getLogs(){
     return logs;
+}
+
+short Parser::comprobarBucles(Escena* E){
+    if(posiblesBucles.at(E) != C_VISITADO && posiblesBucles.at(E) != C_BUCLE){
+        if(E->getSalto()==-1){
+            posiblesBucles.at(E) = C_NO_GENERA;
+            return C_NO_GENERA;
+        }else{
+            posiblesBucles.at(E) = C_VISITADO;
+            short value = comprobarBucles(escenas.at(E->getSalto()));
+            if(value == C_BUCLE){
+                error* tmp = new error;
+                tmp->text = "La escena " + QString::number(E->getSalto()) + " genera un bucle";
+                tmp->tipo = UNDEFINED;
+                logs.push_back(tmp);
+            }
+            posiblesBucles.at(E) = value;
+            return value;
+        }
+    }else{
+        return C_BUCLE;
+    }
 }
 

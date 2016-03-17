@@ -15,9 +15,17 @@
 #include <QList>
 
 enum{
+    C_NO_GENERA,
+    C_VISITADO,
+    C_DESCONOCIDO,
+    C_BUCLE
+};
+
+enum{
     WARNING,
     ERROR,
-    UNDEFINED
+    UNDEFINED,
+    BUCLE
 };
 
 struct error{
@@ -30,6 +38,7 @@ struct error{
 class Parser{
 private:
     map <int,Escena*> escenas;
+    map <Escena*,short> posiblesBucles;
     QList <int> etiquetasSinDeclarar;
     Opcion* tmpOpcion;
     Salto*  tmpSalto;
@@ -50,6 +59,7 @@ public:
     void comprobarEtiquetas(int i);
     void comprobarErroresFinales();
     void crearHistoria();
+    short comprobarBucles(Escena* E);
     vector<error*> getLogs();
 };
 
