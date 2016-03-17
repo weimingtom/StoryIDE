@@ -10,6 +10,7 @@ Parser::Parser()
     tmpOpcion = NULL;
     errorCount = 0;
     escenaActual = 0;
+    tirarLinea = false;
 }
 
 Historia* Parser::compilar(QString text){
@@ -25,81 +26,87 @@ Historia* Parser::compilar(QString text){
         }else{
             QStringList tokenLista = linea.split(" ",QString::KeepEmptyParts);
             foreach (QString token, tokenLista) {
-                if(Regex::etiqueta.indexIn(token)!=-1){
+                if(!tirarLinea){
+                    if(Regex::etiqueta.indexIn(token)!=-1){
 
-                    if(estado == 'A' || estado == 'H' || estado == 'D' || estado == 'F' || estado == 'B'){
-                        estado = 'A';
-                        escenaActual = token.mid(token.indexOf("<")+1,token.indexOf(">")-1).toInt();
+                        if(estado == 'A' || estado == 'H' || estado == 'D' || estado == 'F' || estado == 'B'){
+                            estado = 'A';
+                            escenaActual = token.mid(token.indexOf("<")+1,token.indexOf(">")-1).toInt();
 
-                        if(escenas.find(escenaActual)==escenas.end()){
-                            escenas.insert( pair<int,Escena*> (escenaActual,new Escena()) );
-                            QString buff = token.mid(token.indexOf(">")+1);
-                            if (!buff.isEmpty()) {
-                                escenas.at(escenaActual)->addText(buff);
+                            if(escenas.find(escenaActual)==escenas.end()){
+                                escenas.insert( pair<int,Escena*> (escenaActual,new Escena()) );
+                                QString buff = token.mid(token.indexOf(">")+1);
+                                if (!buff.isEmpty()) {
+                                    escenas.at(escenaActual)->addText(buff);
+                                }
+                                clear();
+                                comprobarEtiquetas(escenaActual);
+                            }else{
+                                error* tmp = new error;
+                                tmp->text = "La escena " + QString::number(escenaActual) + " se define dos veces";
+                                tmp->tipo = ERROR;
+                                tmp->linea = lineCount;
+                                logs.push_back(tmp);
                             }
-                            clear();
-                            comprobarEtiquetas(escenaActual);
-                        }else{
-                            error* tmp = new error;
-                            tmp->text = "La escena " + QString::number(escenaActual) + " se define dos veces";
-                            tmp->tipo = ERROR;
-                            tmp->linea = lineCount;
-                            logs.push_back(tmp);
-                        }
-                    }else{
-                        errores(token);
-                    }
-
-                }else if(Regex::saltoIncondicional.indexIn(token)!=-1){
-                    if(escenas.size()>0){
-                        int idSalto = token.mid(token.indexOf("@")+1).toInt();
-                        comprobarEtiquetas(idSalto);
-                        if(estado == 'A'){
-                            escenas.at(escenaActual)->addSalto(new SaltoIncondicional(idSalto));
-                            cout<<"Añadido salto "<<token.mid(token.indexOf("@")+1).toStdString()<<endl;
-                            posiblesBucles.insert(pair<Escena*,short> (escenas.at(escenaActual),C_DESCONOCIDO));
-                            estado = 'B';
-                        }else if(estado == 'C'){
-                            tmpOpcion->salto = new SaltoIncondicional(idSalto);
-                            escenas.at(escenaActual)->addOpcion(tmpOpcion);
-                            cout<<"Añadido salto de opción "<<token.mid(token.indexOf("@")+1).toStdString()<<endl;
-                            clear();
-                            estado = 'D';
                         }else{
                             errores(token);
                         }
-                    }else{
-                        errores(token);
-                    }
 
-                }else if(Regex::opcion.indexIn(token)!=-1){
-                    //estado = 'C';
-                    if(estado == 'A' || estado == 'D'){
-                        tmpOpcion = new Opcion;
-                        tmpOpcion->text = token.mid(token.indexOf("~")+1);
-                        estado = 'C';
-                    }else{
-                        errores(token);
-                    }
-
-                }else{
-                    if(estado == 'C'){
-                        tmpOpcion->text.append(token+" ");
-                    }else if (estado == 'A'){
+                    }else if(Regex::saltoIncondicional.indexIn(token)!=-1){
                         if(escenas.size()>0){
-                            escenas.at(escenaActual)->addText(token);
+                            int idSalto = token.mid(token.indexOf("@")+1).toInt();
+                            comprobarEtiquetas(idSalto);
+                            if(estado == 'A'){
+                                escenas.at(escenaActual)->addSalto(new SaltoIncondicional(idSalto));
+                                cout<<"Añadido salto "<<token.mid(token.indexOf("@")+1).toStdString()<<endl;
+                                posiblesBucles.insert(pair<Escena*,short> (escenas.at(escenaActual),C_DESCONOCIDO));
+                                estado = 'B';
+                            }else if(estado == 'C'){
+                                tmpOpcion->salto = new SaltoIncondicional(idSalto);
+                                escenas.at(escenaActual)->addOpcion(tmpOpcion);
+                                cout<<"Añadido salto de opción "<<token.mid(token.indexOf("@")+1).toStdString()<<endl;
+                                clear();
+                                estado = 'D';
+                            }else{
+                                errores(token);
+                            }
+                        }else{
+                            errores(token);
                         }
-                    }else if (Regex::blancos.indexIn(token) != -1 && !token.isEmpty()){
-                        error* tmp = new error;
-                        tmp->text = "No se esperaba el símbolo " + token;
-                        tmp->tipo = WARNING;
-                        tmp->linea = lineCount;
-                        logs.push_back(tmp);
+
+                    }else if(Regex::opcion.indexIn(token)!=-1){
+                        //estado = 'C';
+                        if(estado == 'A' || estado == 'D'){
+                            tmpOpcion = new Opcion;
+                            tmpOpcion->text = token.mid(token.indexOf("~")+1);
+                            estado = 'C';
+                        }else{
+                            errores(token);
+                        }
+
+                    }else{
+                        if (Regex::comentario.indexIn(token) != -1){
+                            cout<<"Tirar linea"<<endl;
+                            tirarLinea=true;
+                        } else if(estado == 'C'){
+                            tmpOpcion->text.append(token+" ");
+                        }else if (estado == 'A'){
+                            if(escenas.size()>0){
+                                escenas.at(escenaActual)->addText(token);
+                            }
+                        }else if (Regex::blancos.indexIn(token) != -1 && !token.isEmpty()){
+                            error* tmp = new error;
+                            tmp->text = "No se esperaba el símbolo " + token;
+                            tmp->tipo = WARNING;
+                            tmp->linea = lineCount;
+                            logs.push_back(tmp);
+                        }
                     }
                 }
             }
         }
         lineCount++;
+        tirarLinea = false;
     }
     comprobarErroresFinales();
     for(pair<Escena*,short> E : posiblesBucles){
@@ -179,6 +186,7 @@ vector<error*> Parser::getLogs(){
 }
 
 short Parser::comprobarBucles(Escena* E){
+
     if(posiblesBucles.count(E)){
         if(posiblesBucles.at(E) != C_VISITADO && posiblesBucles.at(E) != C_BUCLE){
             if(E->getSalto()==-1){

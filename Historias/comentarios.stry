@@ -1,0 +1,63 @@
+#Autor#
+{Nombre_Historia}
+
+//Esto es un comentario. Los comentarios son ignorados a la
+//hora de construir la historia. Una vez abierto un comentario
+//mediante "//" nada de lo que se escriba en la misma línea
+//será analizado
+
+//Las escenas se definen mediante "<x>", dónde x debe ser
+//un número.
+//Siempre debe existir la escena 0
+
+
+<0> Esta es la descripción de la escena 0
+    Esto sigue siéndolo, no cambiará hasta
+    que aparezca un caracter virgulilla, una
+    arroba, un símbolo de porentaje u otra escena
+    //(hasta que aparezca '~' , '@' , '%' , '<x>')
+
+    //Las arrobas se emplean para indicar la siguiente
+    //escena que se debe mostrar (salto a escena).
+    //Colocadas inmediatamente detrás de la descripcion de
+    //una escena actuan como si ambas escenas (la que contiene
+    //el salto y a la que se salta) fueran una sola, enviandose
+    //todo el contendio en un solo mensaje
+
+    @1  //esto produce un salto a las escena 1
+
+    //los saltos pueden encadenarse infinitimante
+    //para atravesar 2 o más escenas seguidas, pero
+    //no se pueden generar bucles
+
+<1> Esta es la descripción de la escena 1
+
+    //Los '~' se emplean para ofrecer opciones al jugador.
+    //Las opciones se enumeran automáticamente y solo es
+    //necesario declararlas en orden.
+    //Tras cada opción se debe indicar a qué escena
+    //te lleva, mediante el uso de '@' de forma análoga
+    //al caso anterior
+
+    ~ opción A @2  //opción número 1, al elegirla lleva a la escena 2
+    ~ opción B @3  //opción número 1, al elegirla lleva a la escena 3
+
+<2> Esta es la descripción de la escena 2
+
+    //En caso de que no queramos saltos a escena deterministas
+    //dónde siempre que se eliga una opción o se esté en una
+    //escena se pase a otra determinada, podemos establecer
+    //probabilidades para saltar a dos o más escenas. En este
+    //caso se emplea "%x", donde x debe ser un número y actuará
+    //como el valor máximo de un dado, generando esta operación
+    //un número aleatorio entre 1 y dicho valor máximo.
+    //Por ejemplo %6 se comporta como un dado normal de 6
+    //caras, donde los resultados posibles están contenidos en [1,6]
+
+<3> Esta es la descripción de la escena 3
+
+    //Este tipo de salto también puede ser usado en
+    //opciones, incluso combinando opciones de salto
+    //determinista con salto probabilistico
+
+

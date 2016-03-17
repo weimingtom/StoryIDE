@@ -51,6 +51,7 @@ private:
     int escenaActual;
     Historia* hResultado;
     vector<error*> logs;
+    bool tirarLinea;
 public:
     Parser();
     Historia* compilar(QString);
