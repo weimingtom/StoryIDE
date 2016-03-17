@@ -41,7 +41,7 @@ Historia* Parser::compilar(QString text){
                             comprobarEtiquetas(escenaActual);
                         }else{
                             error* tmp = new error;
-                            tmp->text = "La escena " + QString::number(escenaActual) + "se define dos veces";
+                            tmp->text = "La escena " + QString::number(escenaActual) + " se define dos veces";
                             tmp->tipo = ERROR;
                             tmp->linea = lineCount;
                             logs.push_back(tmp);
@@ -179,24 +179,33 @@ vector<error*> Parser::getLogs(){
 }
 
 short Parser::comprobarBucles(Escena* E){
-    if(posiblesBucles.at(E) != C_VISITADO && posiblesBucles.at(E) != C_BUCLE){
-        if(E->getSalto()==-1){
-            posiblesBucles.at(E) = C_NO_GENERA;
-            return C_NO_GENERA;
-        }else{
-            posiblesBucles.at(E) = C_VISITADO;
-            short value = comprobarBucles(escenas.at(E->getSalto()));
-            if(value == C_BUCLE){
-                error* tmp = new error;
-                tmp->text = "La escena " + QString::number(E->getSalto()) + " genera un bucle";
-                tmp->tipo = UNDEFINED;
-                logs.push_back(tmp);
+    if(posiblesBucles.count(E)){
+        if(posiblesBucles.at(E) != C_VISITADO && posiblesBucles.at(E) != C_BUCLE){
+            if(E->getSalto()==-1){
+                posiblesBucles.at(E) = C_NO_GENERA;
+                return C_NO_GENERA;
+            }else{
+                posiblesBucles.at(E) = C_VISITADO;
+                short value;
+                if(escenas.count(E->getSalto())){;
+                    value = comprobarBucles(escenas.at(E->getSalto()));
+                    if(value == C_BUCLE){
+                        error* tmp = new error;
+                        tmp->text = "La escena " + QString::number(E->getSalto()) + " genera un bucle";
+                        tmp->tipo = UNDEFINED;
+                        logs.push_back(tmp);
+                    }
+                }else{
+                    value = C_NO_GENERA;
+                }
+                posiblesBucles.at(E) = value;
+                return value;
             }
-            posiblesBucles.at(E) = value;
-            return value;
+        }else{
+            return C_BUCLE;
         }
     }else{
-        return C_BUCLE;
+        return C_NO_GENERA;
     }
 }
 
