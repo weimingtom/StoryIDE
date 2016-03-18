@@ -3,7 +3,7 @@
 *Entono de Desarrollo Integrado* simple orientado a crear y probar
 aventuras conversacionales escrita en **stry**.  
 
-![Modo editor]](/pics/StoryIDE_Editor.png)
+![Modo editor]](https://raw.githubusercontent.com/Dariasteam/StoryIDE/master/pics/StoryIDE_Editor.png)
 ## Características
 
 - Resaltadode sintaxis
