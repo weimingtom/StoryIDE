@@ -103,6 +103,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     this->addDockWidget(Qt::LeftDockWidgetArea,dockLinks,Qt::Vertical);
     this->addToolBar(Ribbon);
     this->setWindowTitle("StoryBot IDE [*]");
+
 }
 
 MainWindow::~MainWindow(){

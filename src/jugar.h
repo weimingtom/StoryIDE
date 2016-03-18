@@ -28,12 +28,15 @@ private:
     TextEditor*  editor;
     QPlainTextEdit*  textoEscena;
     Historia* historia;
+    QLineEdit* irAEscena;
+    QLabel* cabecera;
 public:
     Jugar(QWidget* parent, TextEditor* edit);
     void MostrarEscena (int i);
     void setEleccion(int i);
 public slots:
     void compilar();
+    void onIrAEscena();
 };
 
 class BotonJuego : public QPushButton{

@@ -18,9 +18,9 @@ Historia* Parser::compilar(QString text){
     QStringList lineaLista = text.split("\n",QString::KeepEmptyParts);
     foreach (QString linea, lineaLista) {
         if(Regex::autor.indexIn(linea)!=-1){
-            hTitulo = Regex::autor.cap(0).remove("#");
+            hAutor = Regex::autor.cap(0).remove("#");
         }else if(Regex::titulo.indexIn(linea)!=-1){
-            hAutor = Regex::titulo.cap(0).remove("{").remove("}");
+            hTitulo= Regex::titulo.cap(0).remove("{").remove("}");
         }else if(Regex::comentarioCompilacion.indexIn(linea)!=-1){
             cout<<Regex::comentarioCompilacion.cap(1).toStdString().c_str()<<endl;
         }else{

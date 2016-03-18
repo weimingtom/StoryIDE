@@ -26,6 +26,7 @@
 #include <QToolBar>
 #include <QTableView>
 #include <QTableWidget>
+#include <QStyle>
 
 namespace Ui {
 class MainWindow;

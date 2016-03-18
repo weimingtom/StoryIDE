@@ -24,3 +24,17 @@ ContenidoAMostrar Historia::getEscena(int i){
     c.opciones = current->getOpciones();
     return c;
 }
+
+bool Historia::setEscena(int i){
+    cout<<"El mapa tiene "<<escenas.size()<<" y me llega un "<<i<<endl;
+    if(i > -1 && i < escenas.size()){
+        current = escenas.at(i);
+        return true;
+    }else{
+        return false;
+    }
+}
+
+QString Historia::getCabecera(){
+    return titulo + ", por " + autor;
+}

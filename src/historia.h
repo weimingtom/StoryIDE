@@ -27,6 +27,8 @@ public:
     Historia(QString titulop, QString autorp, map<int,Escena*> m);
     QString getText();
     ContenidoAMostrar getEscena(int i);
+    bool setEscena(int i);
+    QString getCabecera();
 };
 
 #endif // HISTORIA_H

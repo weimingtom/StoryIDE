@@ -5,17 +5,23 @@ Jugar::Jugar(QWidget* parent, TextEditor* edit) : QWidget(parent),
     {
     QBoxLayout* lay = new QBoxLayout(QBoxLayout::TopToBottom,this);
     this->setLayout(lay);
-    QLineEdit* irAEscena = new QLineEdit("Ir a la escena...",this);
+
+    cabecera = new QLabel();
+
+    irAEscena = new QLineEdit("Ir a la escena...",this);
+    irAEscena->setEnabled(false);
+    connect(irAEscena,SIGNAL(returnPressed()),this,SLOT(onIrAEscena()));
 
     textoEscena = new QPlainTextEdit();
     QFont font = textoEscena->font();
-    font.setPointSize(30);
+    font.setPointSize(25);
     textoEscena->setFont(font);
     textoEscena->setReadOnly(true);
 
-
+    cabecera->setFont(font);
 
     lay->addWidget(irAEscena);
+    lay->addWidget(cabecera);
     lay->addWidget(textoEscena);
 
     QWidget* botonesJuego = new QWidget(this);
@@ -26,7 +32,9 @@ Jugar::Jugar(QWidget* parent, TextEditor* edit) : QWidget(parent),
 
 void Jugar::compilar(){
     compilador = Parser();
+    irAEscena->setEnabled(true);
     historia = compilador.compilar((editor->toPlainText()));
+    cabecera->setText(historia->getCabecera());
     if(historia!=NULL){
         MostrarEscena(-1);
     }else{
@@ -34,8 +42,8 @@ void Jugar::compilar(){
     }
 }
 
-void Jugar::MostrarEscena(int i){
-    ContenidoAMostrar c = historia->getEscena(i);
+void Jugar::MostrarEscena(int k){
+    ContenidoAMostrar c = historia->getEscena(k);
     QString buff = c.texto + "\n\n";
     QLayoutItem *child;
     while ((child = layBotonesJuego->takeAt(0)) != 0) {
@@ -58,4 +66,15 @@ BotonJuego::BotonJuego (Jugar* padre, int num) : QPushButton(padre){
 
 void BotonJuego::clicado(bool b){
     padre_->MostrarEscena(num_);
+}
+
+void Jugar::onIrAEscena() {
+    cout<<"El número es "<<irAEscena->text().toInt()<<endl;
+    if(historia->setEscena(irAEscena->text().toInt())){
+         irAEscena->setStyleSheet("color: dark-gray");
+         MostrarEscena(-1);
+    }else{
+        irAEscena->setStyleSheet("color: red");
+        cout<<"La escena no exite"<<endl;
+    }
 }
