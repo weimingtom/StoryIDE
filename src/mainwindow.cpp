@@ -27,6 +27,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     insertarEscena = new QAction(QIcon::fromTheme("insert-link"),"Insertar escena",this);
     insertarOpcion = new QAction(QIcon::fromTheme("insert-object"),"Insertar opción",this);
     insertarSalto = new QAction(QIcon::fromTheme("go-jump"),"Insertar salto",this);
+    insertarTitulo = new QAction("Insertar título",this);
+    insertarAutor = new QAction("Insertar autor",this);
 
     verPanelErrores = new QAction("Panel de errores",this);
     verPanelErrores->setCheckable(true);
@@ -54,6 +56,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     editor->addAction(insertarEscena);
     editor->addAction(insertarOpcion);
     editor->addAction(insertarSalto);
+    editor->addAction(insertarTitulo);
+    editor->addAction(insertarAutor);
 
     barraMenu->addMenu(ver);
     ver->addAction(verPanelErrores);
@@ -120,6 +124,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     connect(insertarEscena,SIGNAL(triggered(bool)),textPanel,SLOT(onInsertarEscena()));
     connect(insertarOpcion,SIGNAL(triggered(bool)),textPanel,SLOT(onInsertarOpcion()));
     connect(insertarSalto,SIGNAL(triggered(bool)),textPanel,SLOT(onInsertarSalto()));
+    connect(insertarTitulo,SIGNAL(triggered(bool)),textPanel,SLOT(onInsertarTitulo()));
+    connect(insertarAutor,SIGNAL(triggered(bool)),textPanel,SLOT(onInsertarAutor()));
 
     this->setMenuBar(barraMenu);
     this->setCentralWidget(modos);

@@ -51,6 +51,8 @@ private:
     QAction* insertarEscena;
     QAction* insertarSalto;
     QAction* insertarOpcion;
+    QAction* insertarTitulo;
+    QAction* insertarAutor;
     QFileDialog* dialogoArchivo;
     QString path;
     QTabWidget* modos;

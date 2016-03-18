@@ -47,6 +47,8 @@ private slots:
     void onInsertarEscena();
     void onInsertarOpcion();
     void onInsertarSalto();
+    void onInsertarTitulo();
+    void onInsertarAutor();
 };
 
 class AreaNumeroLinea : public QWidget{

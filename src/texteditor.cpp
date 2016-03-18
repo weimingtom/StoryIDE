@@ -137,12 +137,26 @@ void TextEditor::onInsertarEscena(){
 
 void TextEditor::onInsertarOpcion(){
     cout<<"Insertando opción"<<endl;
-    this->insertPlainText("~ [Texto de la opción] @");
-    QTextCursor cursor (doc->find("[Texto de la opción]"));
+    this->insertPlainText("~ [OPCIÓN] @");
+    QTextCursor cursor (doc->find("[OPCIÓN]"));
     this->setTextCursor(cursor);
 }
 
 void TextEditor::onInsertarSalto(){
     cout<<"Insertando salto"<<endl;
     this->insertPlainText("@");
+}
+
+void TextEditor::onInsertarAutor(){
+   cout<<"Insertando autor"<<endl;
+   this->insertPlainText("# AUTOR #");
+   QTextCursor cursor (doc->find("AUTOR"));
+   this->setTextCursor(cursor);
+}
+
+void TextEditor::onInsertarTitulo(){
+   cout<<"Insertando título"<<endl;
+   this->insertPlainText("{ TÍTULO }");
+   QTextCursor cursor (doc->find("TÍTULO"));
+   this->setTextCursor(cursor);
 }

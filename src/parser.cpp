@@ -131,7 +131,7 @@ void Parser::errores(QString token){
 
 QString Parser::queSeEsperaba() {
     if(estado == 'B') {
-        return "Se esperaba la definición de una escena (<x>";
+        return "Se esperaba la definición de una escena (<x>)";
     }else if(estado == 'C'){
         return "Se esperaba un salto tras la opción (@x)";
     }else if(estado == 'D'){
