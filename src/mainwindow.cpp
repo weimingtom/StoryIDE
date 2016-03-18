@@ -60,7 +60,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     Ribbon->addAction(compilar);
     Ribbon->addAction(jugar);
 
-    dockLinks = new QDockWidget("Escenas",this);
+    dockLinks = new QDockWidget("Links a escenas",this);
     dockCompile = new QDockWidget("Errores",this);
 
     contenedorLinks = new QWidget(dockLinks);

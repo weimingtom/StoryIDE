@@ -124,7 +124,7 @@ Obligatorio para poder probar la historia, se define como
 `# Autor de la historia #`
 
 #### Bucles
-Por razones obvias,**no** o se permiten declaraciones del tipo
+Por razones obvias, **no** se permiten declaraciones del tipo
 
     <0> Esto solo sirve para fastidiar @1
     <1> Y yo no lo voy a permitir @0
@@ -132,7 +132,7 @@ Por razones obvias,**no** o se permiten declaraciones del tipo
 En las que las escenas saltan entre sí infinitamente.  
 Esto no se aplica cuando hay opciones en el bucle, y **sí** se puede hacer:
 
-    <0> ¿Tú lo que quieres es molestar no?
+    <0> ¿Tú lo que quieres es molestar, no?
     ~ Si @0
     ~ Si y mucho @0
 
