@@ -123,10 +123,20 @@ Historia* Parser::compilar(QString text){
 
 void Parser::errores(QString token){
     error* tmp = new error;
-    tmp->text = "No se esperaba el elemento " + token;
+    tmp->text = "No se esperaba el elemento " + token + ". " + queSeEsperaba() ;
     tmp->tipo = ERROR;
     tmp->linea = lineCount;
     logs.push_back(tmp);
+}
+
+QString Parser::queSeEsperaba() {
+    if(estado == 'B') {
+        return "Se esperaba la definición de una escena (<x>";
+    }else if(estado == 'C'){
+        return "Se esperaba un salto tras la opción (@x)";
+    }else if(estado == 'D'){
+        return "Se esperaba la definición de una escena o una opción (<x> ó ~ )";
+    }
 }
 
 void Parser::clear(){

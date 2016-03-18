@@ -52,6 +52,7 @@ private:
     Historia* hResultado;
     vector<error*> logs;
     bool tirarLinea;
+    QString queSeEsperaba();
 public:
     Parser();
     Historia* compilar(QString);

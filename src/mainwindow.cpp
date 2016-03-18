@@ -40,6 +40,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     compilar->setShortcut(QKeySequence("Ctrl+b"));
     jugar->setShortcut(QKeySequence("Ctrl+r"));
 
+    insertarEscena->setShortcut(QKeySequence("Ctrl+t"));
+    insertarOpcion->setShortcut(QKeySequence("Ctrl+y"));
+    insertarSalto->setShortcut(QKeySequence("Ctrl+u"));
+
     barraMenu->addMenu(archivo);
     archivo->addAction(abrir);
     archivo->addAction(guardar);
