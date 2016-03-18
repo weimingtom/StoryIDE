@@ -14,7 +14,7 @@
 <0> Esta es la descripción de la escena 0
     Esto sigue siéndolo, no cambiará hasta
     que aparezca un caracter virgulilla, una
-    arroba, un símbolo de porentaje u otra escena
+    arroba, un símbolo de porcentaje u otra escena 
     //(hasta que aparezca '~' , '@' , '%' , '<x>')
 
     //Las arrobas se emplean para indicar la siguiente

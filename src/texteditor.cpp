@@ -17,6 +17,10 @@ TextEditor::TextEditor(QWidget* parent, QMainWindow* mainw, QWidget* conten) : Q
     paleta->setColor(QPalette::Text,QColor("white"));
     this->setPalette(*paleta);
 
+    QFont font = this->font();
+    font.setPointSize(11);
+    this->setFont(font);
+
     Resaltador* a = new Resaltador(this->document());
     doc = document();
 

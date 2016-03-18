@@ -30,6 +30,7 @@ private:
     Historia* historia;
     QLineEdit* irAEscena;
     QLabel* cabecera;
+    bool fallando;
 public:
     Jugar(QWidget* parent, TextEditor* edit);
     void MostrarEscena (int i);

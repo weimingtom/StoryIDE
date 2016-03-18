@@ -15,6 +15,7 @@
 #include <QLayout>
 #include <QTextDocument>
 #include <utility>
+#include <QFont>
 
 using namespace std;
 

@@ -16,12 +16,6 @@ Resaltador::Resaltador(QTextDocument* parent) : QSyntaxHighlighter(parent){
     rule.format = formatoTitulo;
     highlightingRules.append(rule);
 
-    formatoComentario.setForeground(Qt::gray);
-    formatoComentario.setFontItalic(true);
-    rule.pattern = Regex::comentarioResaltado;
-    rule.format = formatoComentario;
-    highlightingRules.append(rule);
-
     formatoAutor.setForeground(colorAutor);
     formatoAutor.setFontWeight(QFont::Bold);
     rule.pattern = Regex::autor;
@@ -58,6 +52,11 @@ Resaltador::Resaltador(QTextDocument* parent) : QSyntaxHighlighter(parent){
     rule.format = formatoBloqueProbabilistico;
     highlightingRules.append(rule);
 
+    formatoComentario.setForeground(Qt::gray);
+    formatoComentario.setFontItalic(true);
+    rule.pattern = Regex::comentarioResaltado;
+    rule.format = formatoComentario;
+    highlightingRules.append(rule);
 }
 
 void Resaltador::highlightBlock(const QString &text){

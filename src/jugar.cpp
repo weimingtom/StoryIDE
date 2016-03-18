@@ -6,6 +6,7 @@ Jugar::Jugar(QWidget* parent, TextEditor* edit) : QWidget(parent),
     QBoxLayout* lay = new QBoxLayout(QBoxLayout::TopToBottom,this);
     this->setLayout(lay);
 
+    fallando = false;
     cabecera = new QLabel();
 
     irAEscena = new QLineEdit("Ir a la escena...",this);
@@ -14,7 +15,7 @@ Jugar::Jugar(QWidget* parent, TextEditor* edit) : QWidget(parent),
 
     textoEscena = new QPlainTextEdit();
     QFont font = textoEscena->font();
-    font.setPointSize(25);
+    font.setPointSize(20);
     textoEscena->setFont(font);
     textoEscena->setReadOnly(true);
 
@@ -34,11 +35,13 @@ void Jugar::compilar(){
     compilador = Parser();
     irAEscena->setEnabled(true);
     historia = compilador.compilar((editor->toPlainText()));
-    cabecera->setText(historia->getCabecera());
     if(historia!=NULL){
+        cabecera->setText(historia->getCabecera());
+        fallando = false;
         MostrarEscena(-1);
     }else{
         cout<<"Errores"<<endl;
+        fallando = true;
     }
 }
 
@@ -47,8 +50,9 @@ void Jugar::MostrarEscena(int k){
     QString buff = c.texto + "\n\n";
     QLayoutItem *child;
     while ((child = layBotonesJuego->takeAt(0)) != 0) {
-        delete child;
-    }
+        child->widget()->setVisible(false);
+        delete child->widget();
+    }  
     for (int i = 0; i < c.opciones.size(); i++){
         buff.append(QString::number(i) + ".- " + c.opciones[i] + "\n");
         BotonJuego* aux = new BotonJuego (this,i);
@@ -70,7 +74,7 @@ void BotonJuego::clicado(bool b){
 
 void Jugar::onIrAEscena() {
     cout<<"El número es "<<irAEscena->text().toInt()<<endl;
-    if(historia->setEscena(irAEscena->text().toInt())){
+    if(!fallando && historia->setEscena(irAEscena->text().toInt())){
          irAEscena->setStyleSheet("color: dark-gray");
          MostrarEscena(-1);
     }else{

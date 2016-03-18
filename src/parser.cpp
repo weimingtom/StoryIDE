@@ -17,6 +17,7 @@ Historia* Parser::compilar(QString text){
     logs.clear();
     QStringList lineaLista = text.split("\n",QString::KeepEmptyParts);
     foreach (QString linea, lineaLista) {
+
         if(Regex::autor.indexIn(linea)!=-1){
             hAutor = Regex::autor.cap(0).remove("#");
         }else if(Regex::titulo.indexIn(linea)!=-1){

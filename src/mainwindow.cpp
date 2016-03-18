@@ -84,14 +84,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     dockLinks->setWidget(scroll);
     dockLinks->layout()->setSizeConstraint(QBoxLayout::SetMinimumSize);
 
-    dockCompile->setFeatures(QDockWidget::NoDockWidgetFeatures);
+    dockCompile->setFeatures(QDockWidget::DockWidgetMovable);
+
+    dockCompile->layout()->setSizeConstraint(QBoxLayout::SetMinimumSize);
 
     modos = new QTabWidget (this);
     textPanel = new TextEditor (modos,this,contenedorLinks);
     juego = new Jugar (modos,textPanel);
-    compilerPanel = new PanelCompilar(modos);
+    //compilerPanel = new PanelCompilar(modos);
     modos->addTab (textPanel, "Editor");
-    modos->addTab (compilerPanel, "Compilador");
+    //modos->addTab (compilerPanel, "Compilador");
     modos->addTab (juego, "Juego");
 
     connect(verPanelErrores,SIGNAL(triggered(bool)),dockCompile,SLOT(setVisible(bool)));
@@ -174,7 +176,7 @@ void MainWindow::addTag(LinkEtiqueta *tag){
 }
 
 void MainWindow::onJugar(){
-    modos->setCurrentIndex(2);
+    modos->setCurrentIndex(1);
     Parser analizador = Parser();
     analizador.compilar(textPanel->toPlainText());
     setLogs(analizador.getLogs());
