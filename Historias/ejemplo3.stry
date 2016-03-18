@@ -1,0 +1,54 @@
+//Este es un ejemplo de como utilizar StoryIDE para representar algoritmos
+
+{ Cómo sumar números }
+# Darias #
+
+<0> Comienza colocando los dos números uno encima de otro, alineando
+las las unidades, decenas etc. de ambos en distintas columnas. Estos serán 
+los sumandos. Traza una línea horizontal bajo el segundo sumando. Debajo de
+esta iremos colocando el resultado final según lo calculemos
+
+~ Siguiente paso @1
+
+<1> A continuación, suma unicamente la columna de las unidades, pueden ocurrir dos cosas:
+
+~ El resultado es mayor de 9 @2
+~ El resultado es menor o igual que 9 @3
+
+<2> Dividimos el resultado en dos partes, unidades y decenas.
+Por ejemplo si el resultado de 5 + 8 = 13, dividiremos el número 
+en la decena 1 y la unidad 3.
+
+Colocamos en las columna de las unidades del resultado final la segunda parte del número, 
+en este caso el 3.
+
+Colocamos en la columna de las decenas encima de los dos sumandos la primera parte del 
+número, en este caso el 1. 
+
+~ Siguiente paso @4
+
+<3> Colocamos el resultado en la columna de las unidades del resultado final. @4
+
+<4> ¿Aún quedan columnas por sumar?
+
+~ Sí @5
+~ No @8
+
+<5> Pasamos ahora a realizar el mismo proceso en la siguiente columna
+Debemos recordar que puede que ahora esta columna presente tres sumandos en vez de uno
+(el que nos hemos "llevado" de la suma anterior). De igual forma, se nos presentan dosposibilidades
+
+~ El resultado es mayor que 9 @6
+~ El resultado es menor o igual que 9 @7
+
+<6> Dividimos el resultado en dos partes, donde la parte derecha corresponde al resultado final
+de esta columna y la parte izquierda se añadirá como sumando encima de la columna siguiente.
+
+~ Siguiente paso @4
+
+<7> Colocamos el resultado en e resultado final de esta columna 
+
+~ Siguiente paso @4
+
+<8> ¡Felicidades! Has conseguido sumar el número
+
