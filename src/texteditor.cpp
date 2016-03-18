@@ -112,7 +112,7 @@ void TextEditor::actualizarLinks(){
     vector <pair<int,int> > auxVec;                  //nº escena / linea
     while ((pos = etiqueta->indexIn(toPlainText(), pos)) != -1) {
         int linea = document()->find(etiqueta->cap(0)).blockNumber();
-        auxVec.push_back(make_pair(etiqueta->cap(1).remove("<").remove(">").toInt(),linea));
+        auxVec.push_back(make_pair(etiqueta->cap(0).remove("<").remove(">").toInt(),linea));
         pos += etiqueta->matchedLength();
     }
     while(!contenedor->layout()->isEmpty()){
@@ -128,4 +128,21 @@ void TextEditor::actualizarLinks(){
 void TextEditor::setLinea(int ln){
     QTextCursor cursor( doc->findBlockByLineNumber(ln));
     setTextCursor(cursor);
+}
+
+void TextEditor::onInsertarEscena(){
+    cout<<"Insertando escena"<<endl;
+    this->insertPlainText("<" + QString::number(nEtiquetas) + "> ");
+}
+
+void TextEditor::onInsertarOpcion(){
+    cout<<"Insertando opción"<<endl;
+    this->insertPlainText("~ [Texto de la opción] @");
+    QTextCursor cursor (doc->find("[Texto de la opción]"));
+    this->setTextCursor(cursor);
+}
+
+void TextEditor::onInsertarSalto(){
+    cout<<"Insertando salto"<<endl;
+    this->insertPlainText("@");
 }

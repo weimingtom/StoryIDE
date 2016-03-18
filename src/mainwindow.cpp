@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 
     barraMenu = new QMenuBar(this);
     archivo = new QMenu("Archivo",this);
+    editor = new QMenu("Editor",this);
     ver = new QMenu("Ver",this);
 
     iconAbrir = QIcon::fromTheme("document-open");
@@ -22,6 +23,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     guardarComo = new QAction(iconGuardarComo,"Guardar como",this);
     compilar = new QAction(QIcon::fromTheme("system-run"),"Compilar",this);
     jugar = new QAction(QIcon::fromTheme("media-playback-start"),"Jugar",this);
+
+    insertarEscena = new QAction(QIcon::fromTheme("insert-link"),"Insertar escena",this);
+    insertarOpcion = new QAction(QIcon::fromTheme("insert-object"),"Insertar opción",this);
+    insertarSalto = new QAction(QIcon::fromTheme("go-jump"),"Insertar salto",this);
 
     verPanelErrores = new QAction("Panel de errores",this);
     verPanelErrores->setCheckable(true);
@@ -40,6 +45,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     archivo->addAction(guardar);
     archivo->addAction(guardarComo);
 
+    barraMenu->addMenu(editor);
+    editor->addSection("Insertar");
+    editor->addAction(insertarEscena);
+    editor->addAction(insertarOpcion);
+    editor->addAction(insertarSalto);
+
     barraMenu->addMenu(ver);
     ver->addAction(verPanelErrores);
     ver->addAction(verPanelEscenas);
@@ -52,13 +63,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     connect(jugar,SIGNAL(triggered(bool)),this,SLOT(onJugar()));
     connect(compilar,SIGNAL(triggered(bool)),this,SLOT(onCompilar()));
 
-
     QToolBar * Ribbon = new QToolBar(this);
     Ribbon->addAction(abrir);
     Ribbon->addAction(guardar);
     Ribbon->addSeparator();
     Ribbon->addAction(compilar);
     Ribbon->addAction(jugar);
+    Ribbon->addSeparator();
+    Ribbon->addAction(insertarEscena);
+    Ribbon->addAction(insertarOpcion);
+    Ribbon->addAction(insertarSalto);
 
     dockLinks = new QDockWidget("Links a escenas",this);
     dockCompile = new QDockWidget("Errores",this);
@@ -98,6 +112,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 
     connect(verPanelErrores,SIGNAL(triggered(bool)),dockCompile,SLOT(setVisible(bool)));
     connect(verPanelEscenas,SIGNAL(triggered(bool)),dockLinks,SLOT(setVisible(bool)));
+
+    connect(insertarEscena,SIGNAL(triggered(bool)),textPanel,SLOT(onInsertarEscena()));
+    connect(insertarOpcion,SIGNAL(triggered(bool)),textPanel,SLOT(onInsertarOpcion()));
+    connect(insertarSalto,SIGNAL(triggered(bool)),textPanel,SLOT(onInsertarSalto()));
 
     this->setMenuBar(barraMenu);
     this->setCentralWidget(modos);

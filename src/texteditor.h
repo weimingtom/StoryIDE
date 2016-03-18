@@ -44,6 +44,9 @@ private slots:
     void highlightCurrentLine();
     void updateAreaNumeroLinea(const QRect &, int);
     void actualizarLinks();
+    void onInsertarEscena();
+    void onInsertarOpcion();
+    void onInsertarSalto();
 };
 
 class AreaNumeroLinea : public QWidget{

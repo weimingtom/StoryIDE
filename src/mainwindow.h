@@ -40,6 +40,7 @@ private:
     QMenuBar* barraMenu;
     QMenu* archivo;
     QMenu* ver;
+    QMenu* editor;
     QAction* abrir;
     QAction* guardar;
     QAction* guardarComo;
@@ -47,6 +48,9 @@ private:
     QAction* verPanelEscenas;
     QAction* compilar;
     QAction* jugar;
+    QAction* insertarEscena;
+    QAction* insertarSalto;
+    QAction* insertarOpcion;
     QFileDialog* dialogoArchivo;
     QString path;
     QTabWidget* modos;
