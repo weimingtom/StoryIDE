@@ -38,7 +38,7 @@ public:
     int areaNumeroLineaWidth();
     void setLinea(int l);
 protected:
-    void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
+    void resizeEvent(QResizeEvent *event);
 private slots:
     void updateAreaNumeroLineaWidth(int newBlockCount);
     void highlightCurrentLine();
@@ -61,11 +61,11 @@ public:
         editor = parent;
     }
 
-    QSize sizeHint() const Q_DECL_OVERRIDE {
+    QSize sizeHint() const {
         return QSize(editor->areaNumeroLineaWidth(), 0);
     }
 protected:
-    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE {
+    void paintEvent(QPaintEvent *event) {
         editor->areaNumeroLineaPaintEvent(event);
     }
 };

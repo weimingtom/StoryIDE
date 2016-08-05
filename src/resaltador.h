@@ -41,7 +41,7 @@ private:
 public:
     Resaltador(QTextDocument* parent = 0);
 protected:
-    void highlightBlock(const QString &text) Q_DECL_OVERRIDE;
+    void highlightBlock(const QString &text);
 };
 
 #endif // RESALTADOR_H

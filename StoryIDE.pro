@@ -12,6 +12,7 @@ TARGET = StoryIDE
 TEMPLATE = app
 CONFIG += c++11 -03
 
+QMAKE_CXXFLAGS += -std=c++0x
 
 SOURCES += src/main.cpp\
         src/mainwindow.cpp \

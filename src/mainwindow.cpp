@@ -52,7 +52,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     archivo->addAction(guardarComo);
 
     barraMenu->addMenu(editor);
-    editor->addSection("Insertar");
+    //editor->addSection("Insertar");
     editor->addAction(insertarEscena);
     editor->addAction(insertarOpcion);
     editor->addAction(insertarSalto);
